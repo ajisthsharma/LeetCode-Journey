@@ -1,8 +1,10 @@
 class Solution:
     def returnToBoundaryCount(self, nums: List[int]) -> int:
-        x = 0
-        done = 0
-        for i in nums :
-            x += i
-            done += (x == 0)
-        return done
+        
+        curr = 0
+        res = 0
+        for num in nums:
+            curr += num
+            if curr == 0:
+                res += 1
+        return res 
