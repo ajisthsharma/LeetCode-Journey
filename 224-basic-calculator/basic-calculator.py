@@ -1,40 +1,33 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        result = 0
-        number = 0
-        sign = 1
         stack = []
+        result = 0
+        sign = 1
+        curr = 0
 
         for ch in s:
-            if ch.isdigit():
-                number = number*10 + int(ch)
-            
-            elif ch == "+":
-                result += sign * number
-                number = 0
+            if ch == " ":
+                continue
+            elif ch.isdigit():
+                curr = curr * 10 + int(ch)
+            elif ch == '+':
+                result += sign * curr
                 sign = 1
-            
-            elif ch == "-":
-                result += sign * number
-                number = 0
+                curr = 0
+            elif ch == '-':
+                result += sign * curr
                 sign = -1
-            
-            elif ch == "(":
+                curr = 0
+            elif ch == '(':
                 stack.append(result)
                 stack.append(sign)
-
                 result = 0
                 sign = 1
-            
-            elif ch == ")":
-                result += sign * number
-                number = 0
-
-                previous_sign = stack.pop()
-                previous_result = stack.pop()
-
-                result = previous_result + previous_sign * result
+            else:
+                result += sign * curr
+                result *= stack.pop()
+                result += stack.pop()
+                curr = 0
         
-        result += sign * number
-
+        result += sign * curr
         return result
