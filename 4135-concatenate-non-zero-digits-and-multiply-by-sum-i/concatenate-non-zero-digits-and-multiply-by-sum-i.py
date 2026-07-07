@@ -1,20 +1,12 @@
 class Solution:
     def sumAndMultiply(self, n: int) -> int:
-        summ=0
-        x=''
+        digit_sum = 0
+        ans = 0
 
-        if n==0: return 0
+        for ch in str(n):
+            digit = int(ch)
+            digit_sum += digit
+            if digit != 0:
+                ans = ans * 10 + digit
 
-        while n>0:
-            digit=n%10
-            n//=10
-
-            if digit==0: continue
-
-            summ+=digit
-            x+=str(digit)
-
-        x=x[::-1]
-        x=int(x)
-
-        return x*summ
+        return ans * digit_sum
