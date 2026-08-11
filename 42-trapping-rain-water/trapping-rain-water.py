@@ -1,26 +1,19 @@
-from typing import List
-
 class Solution:
     def trap(self, height: List[int]) -> int:
-        if not height:
-            return 0
+        water = 0
+        L, R = 0, len(height) - 1
+        LeftMax, RightMax =0, 0
         
-        n = len(height)
-        ans = 0
+        while L < R:
+            if height[L] < height[R]:
+                LeftMax = max(LeftMax, height[L])
+                water += LeftMax - height[L]
+                L+=1
+            else:
+                RightMax = max(RightMax, height[R])
+                water += RightMax - height[R]
+                R-=1
+        return water
+
+ 
         
-        lmax = [0] * n
-        rmax = [0] * n
-        
-        # Fill left_max array
-        lmax[0] = height[0]
-        for i in range(1, n):
-            lmax[i] = max(lmax[i-1], height[i])
-            
-        rmax[n-1] = height[n-1]
-        for i in range(n-2, -1, -1):
-            rmax[i] = max(rmax[i+1], height[i])
-            
-        for i in range(n):
-            ans += min(lmax[i], rmax[i]) - height[i]
-            
-        return ans
