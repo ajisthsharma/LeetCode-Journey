@@ -6,16 +6,16 @@
 #         self.right = right
 class Solution:
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        total = 0
-        def dfs(node):
-            nonlocal total
+        self.summ=0
 
-            if not node:return
-            
-            dfs(node.right)
-            total += node.val
-            node.val = total
-            dfs(node.left)
+        def inorder(root):
+            if not root:
+                return None
 
-        dfs(root)
+            inorder(root.right)
+            self.summ+=root.val
+            root.val=self.summ
+            inorder(root.left)
+
+        inorder(root)
         return root
