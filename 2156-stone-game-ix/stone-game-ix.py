@@ -1,8 +1,15 @@
 class Solution:
     def stoneGameIX(self, stones: List[int]) -> bool:
-        c=Counter(x%3 for x in stones)
-
-        if c[0]%2==0:
-            return c[1]>0 and c[2]>0
-
-        return abs(c[1]-c[2])>2
+        cnt = [0, 0, 0]
+        for x in stones:
+            cnt[x % 3] += 1
+        
+        c0, c1, c2 = cnt
+        
+        if c1 == 0 and c2 == 0:
+            return False
+        
+        if c0 % 2 == 0:
+            return c1 > 0 and c2 > 0
+        else:
+            return abs(c1 - c2) > 2
