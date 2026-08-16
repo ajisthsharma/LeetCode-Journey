@@ -11,5 +11,5 @@ class Solution:
         
         if c0 % 2 == 0:
             return c1 > 0 and c2 > 0
-        else:
-            return abs(c1 - c2) > 2
+        
+        return abs(c1 - c2) > 2
