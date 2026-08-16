@@ -1,17 +1,20 @@
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        
-        def solve(start,target,comb):
-            if target==0:
-                ans.append(comb)
-            if target<0:
+    def combinationSum(self, candidates, target):
+        result = []
+
+        def backtrack(start, target, current):
+            if target == 0:
+                result.append(current.copy())
                 return
 
-            for i in range(start,len(candidates)):
-                solve(i,target-candidates[i],comb+[candidates[i]])
+            for i in range(start, len(candidates)):
+                if candidates[i] > target:
+                    continue
 
-        ans=[]
-        candidates.sort()
-        solve(0,target,[])
+                current.append(candidates[i])
+                backtrack(i, target - candidates[i], current)
+                current.pop()
 
-        return ans
+        backtrack(0, target, [])
+
+        return result
