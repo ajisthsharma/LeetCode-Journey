@@ -1,23 +1,20 @@
 class Solution:
     def maxNumberOfFamilies(self, n: int, reservedSeats: List[List[int]]) -> int:
-        seats=defaultdict(set)
+        seats = defaultdict(set)
 
-        for row,seat in reservedSeats:
-            if seat in [2,3,4,5]:
+        for row, seat in reservedSeats:
+            if seat in [2, 3, 4, 5]:
                 seats[row].add(0)
-            
-            if seat in [4,5,6,7]:
+            if seat in [4, 5, 6, 7]:
                 seats[row].add(1)
-
-            if seat in [6,7,8,9]:
+            if seat in [6, 7, 8, 9]:
                 seats[row].add(2)
 
-            ans=2*n
-
+        res = 2 * n
         for i in seats:
-            if len(seats[i])==3:
-                ans-=2
+            if len(seats[i]) == 3:
+                res -= 2
             else:
-                ans-=1
+                res -= 1
 
-        return ans
+        return res
