@@ -11,7 +11,7 @@ class Solution:
             if key in sums:
                 ans+=sums[key]
                 sums[key]+=1
-            else:
-                sums[key]=1
+                continue
+            sums[key]=1
 
         return ans
