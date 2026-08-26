@@ -4,24 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
-    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
-        def build(start,end):
-            if start>end:
-                return [None]
+    def generateTrees(self, n: int):
+        if n == 0:
+            return []
 
-            tree=[]
-            for root in range(start,end+1):
-                left_subtree=build(start,root-1)
-                right_subtree=build(root+1,end)
+        def build(start, end):
+            trees = []
+            if start > end:
+                trees.append(None)
+                return trees
 
-                for left in left_subtree:
-                    for right in right_subtree:
-                        node=TreeNode(root)
-                        node.left=left
-                        node.right=right
-                        tree.append(node)
+            for root_val in range(start, end + 1):
+                # Generate all possible left and right subtrees
+                left_trees = build(start, root_val - 1)
+                right_trees = build(root_val + 1, end)
 
-            return tree
+                # Combine them with the current root
+                for l in left_trees:
+                    for r in right_trees:
+                        root = TreeNode(root_val)
+                        root.left = l
+                        root.right = r
+                        trees.append(root)
+            return trees
 
-        return build(1,n)
+        return build(1, n)
