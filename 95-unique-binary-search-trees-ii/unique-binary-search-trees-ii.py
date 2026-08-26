@@ -17,11 +17,9 @@ class Solution:
                 return trees
 
             for root_val in range(start, end + 1):
-                # Generate all possible left and right subtrees
                 left_trees = build(start, root_val - 1)
                 right_trees = build(root_val + 1, end)
 
-                # Combine them with the current root
                 for l in left_trees:
                     for r in right_trees:
                         root = TreeNode(root_val)
