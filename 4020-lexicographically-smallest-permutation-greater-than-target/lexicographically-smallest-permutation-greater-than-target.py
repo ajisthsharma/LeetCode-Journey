@@ -1,27 +1,36 @@
 class Solution:
     def lexGreaterPermutation(self, s: str, target: str) -> str:
-        S=[ord(ch)-97 for ch in s]
-        T=[ord(ch)-97 for ch in target]
-        S.sort(reverse=True)
-        ans=[]
+        n = len(s)
+        count = [0] * 26
+        for ch in s:
+            count[ord(ch) - ord('a')] += 1
 
-        for i,ch in enumerate(T):
-            if ch in S:
-                S.remove(ch)
-                if S>T[i+1:]:
-                    ans.append(ch)
-                    continue
-                S.append(ch)
-                S.sort(reverse=True)
+        matched_len = 0
+        while matched_len < n:
+            idx = ord(target[matched_len]) - ord('a')
+            if count[idx] > 0:
+                count[idx] -= 1
+                matched_len += 1
+            else:
+                break
 
-            S.sort()
-            for x in S:
-                if x>ch:
-                    S.remove(x)
-                    ans.append(x)
-                    ans.extend(S)
-                    break
+        for i in range(matched_len, -1, -1):
+            if i < n:
+                target_char_idx = ord(target[i]) - ord('a')
 
-            break
+                for c in range(target_char_idx + 1, 26):
+                    if count[c] > 0:
+                    
+                        count[c] -= 1
 
-        return ''.join(chr(97+ch) for ch in ans)
+                        suffix = []
+                        for ch_idx in range(26):
+                            if count[ch_idx] > 0:
+                                suffix.append(chr(ord('a') + ch_idx) * count[ch_idx])
+                                
+                        return target[:i] + chr(ord('a') + c) + "".join(suffix)
+
+            if i > 0:
+                count[ord(target[i - 1]) - ord('a')] += 1
+                
+        return ""
