@@ -1,10 +1,7 @@
 class Solution:
-    def targetIndices(self, nums: List[int], target: int) -> List[int]:
-        ans=[]
+    def targetIndices(self, nums: list[int], target: int) -> list[int]:
         nums.sort()
 
-        for i in range(len(nums)):
-            if nums[i]==target:
-                ans.append(i)
+        result = [i for i, x in enumerate(nums) if x == target]
 
-        return ans
+        return result
